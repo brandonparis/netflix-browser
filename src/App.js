@@ -11,7 +11,7 @@ const Grid = styled.div`
   justify-content: center;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
-  margin: ${({ commits }) => (commits.length ? "" : "0 auto")};
+  margin: 0 auto;
   gap: 2rem;
 `;
 
@@ -19,8 +19,7 @@ const CommitContainer = styled.div``;
 
 function App() {
   const { repos } = useRepo({ repo: "Netflix" });
-  const [commits, setCommits] = useState([]);
-  console.log(commits);
+  const [commits, setCommits] = useState({});
   return (
     <div>
       <Grid commits={commits}>
