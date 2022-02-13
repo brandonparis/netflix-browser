@@ -13,7 +13,7 @@ export default function useRepo({ repo }) {
         );
         setRepos(data);
       } catch (error) {
-        toast(error.message);
+        toast(error.response.data.message);
       }
     }
     fetchData();
