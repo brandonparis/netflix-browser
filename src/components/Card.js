@@ -62,7 +62,8 @@ export default function Card({ repo, commits, setCommits }) {
     <Container onClick={getCommits}>
       <h1>{repo.name}</h1>
       <p>
-        <span>Language:</span> {repo.language}
+        <span data-testid={`Language-${repo.id}`}>Language:</span>{" "}
+        {repo.language}
       </p>
       <p>
         <span>Description:</span> {repo.description}

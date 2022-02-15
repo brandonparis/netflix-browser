@@ -47,12 +47,17 @@ const FlexContainer = styled.div`
     width: 30%;
     padding: 0.25rem 0.5rem;
   }
+
+  div#loading {
+    color: #fff;
+    padding: 2rem;
+  }
 `;
 
 function App() {
   const [repo, setRepo] = useState("Netflix");
   const [value, setValue] = useState("");
-  const { repos } = useRepo({ repo });
+  const { repos, loading } = useRepo({ repo });
   const [commits, setCommits] = useState({});
 
   const handleSubmit = (e) => {
@@ -73,26 +78,33 @@ function App() {
         />
         <button type="submit">Submit</button>
       </form>
-      <Grid commits={commits}>
-        {repos.length &&
-          repos
-            .sort((a, b) => b.stargazers_count - a.stargazers_count)
-            .map((repo) => (
-              <Card
-                key={repo.id}
-                commits={commits}
-                setCommits={setCommits}
-                repo={repo}
-              />
-            ))}
-      </Grid>
-      {commits.length && (
-        <div>
-          {commits.map((commit) => (
-            <p key={commit.sha}>Title: {commit.commit.message}</p>
-          ))}
-        </div>
+      {loading ? (
+        <div id="loading">Loading...</div>
+      ) : (
+        <>
+          <Grid commits={commits}>
+            {repos.length &&
+              repos
+                .sort((a, b) => b.stargazers_count - a.stargazers_count)
+                .map((repo) => (
+                  <Card
+                    key={repo.id}
+                    commits={commits}
+                    setCommits={setCommits}
+                    repo={repo}
+                  />
+                ))}
+          </Grid>
+          {commits.length && (
+            <div>
+              {commits.map((commit) => (
+                <p key={commit.sha}>Title: {commit.commit.message}</p>
+              ))}
+            </div>
+          )}
+        </>
       )}
+
       <Toaster />
     </FlexContainer>
   );
